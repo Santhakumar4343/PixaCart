@@ -41,23 +41,19 @@ PRODUCTS.create_product = async (req, res) => {
     await productsModel
       .findOneAndUpdate({ _id: req.body.id }, postData)
       .then(async (result) => {
-        res
-          .status(200)
-          .json({
-            status: 1,
-            message: "Product Updated Successfully!",
-            data: req.body.id,
-            redirect: "dashboard/products",
-          });
+        res.status(200).json({
+          status: 1,
+          message: "Product Updated Successfully!",
+          data: req.body.id,
+          redirect: "dashboard/products",
+        });
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in update product.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in update product.",
+          data: err.message,
+        });
       });
   } else {
     postData.prod_sellerid = req.session.user.user_id;
@@ -65,23 +61,19 @@ PRODUCTS.create_product = async (req, res) => {
     await productsModel
       .create(postData)
       .then((creatRes) => {
-        res
-          .status(200)
-          .json({
-            status: 1,
-            message: "Product Added Successfully!",
-            data: creatRes,
-            redirect: "dashboard/add-product-variant/" + creatRes._id,
-          });
+        res.status(200).json({
+          status: 1,
+          message: "Product Added Successfully!",
+          data: creatRes,
+          redirect: "dashboard/add-product-variant/" + creatRes._id,
+        });
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in insert product.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in insert product.",
+          data: err.message,
+        });
       });
   }
 };
@@ -139,22 +131,18 @@ PRODUCTS.create_product_variants = async (req, res) => {
 
           productsThumbModel.insertMany(imageInsert);
         }
-        res
-          .status(200)
-          .json({
-            status: 1,
-            message: "Product variant Updated Successfully!",
-            data: req.body.id,
-          });
+        res.status(200).json({
+          status: 1,
+          message: "Product variant Updated Successfully!",
+          data: req.body.id,
+        });
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in update product.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in update product.",
+          data: err.message,
+        });
       });
   } else {
     postData.prod_sellerid = await helper.uid(req);
@@ -175,13 +163,11 @@ PRODUCTS.create_product_variants = async (req, res) => {
           }
           productsThumbModel.insertMany(imageInsert);
         }
-        res
-          .status(200)
-          .json({
-            status: 1,
-            message: "Product variant Added Successfully!",
-            data: creatRes,
-          });
+        res.status(200).json({
+          status: 1,
+          message: "Product variant Added Successfully!",
+          data: creatRes,
+        });
       })
       .catch((err) => {
         let m =
@@ -302,67 +288,55 @@ PRODUCTS.create_category = async (req, res) => {
           await categoryModel
             .findOneAndUpdate({ _id: req.body.id }, postData)
             .then(async (result) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Category Updated Successfully!",
-                  data: req.body.id,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Category Updated Successfully!",
+                data: req.body.id,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in update category.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in update category.",
+                data: err.message,
+              });
             });
         }
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in update category.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in update category.",
+          data: err.message,
+        });
       });
   } else {
     await categoryModel
       .findOne({ cate_name: req.body.cate_name })
       .then((check) => {
         if (check) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Category already exists.",
-              data: check,
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Category already exists.",
+            data: check,
+          });
         } else {
           postData.name = req.body.name;
           categoryModel
             .create(postData)
             .then((creatRes) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Category Added Successfully!",
-                  data: creatRes,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Category Added Successfully!",
+                data: creatRes,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in insert category.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in insert category.",
+                data: err.message,
+              });
             });
         }
       });
@@ -390,13 +364,11 @@ PRODUCTS.create_subcategory = async (req, res) => {
       .findOne({ cate_name: req.body.cate_name, _id: { $ne: req.body.id } })
       .then(async (checkCateExist) => {
         if (checkCateExist) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Category name already exists, Please try another one.",
-              data: "",
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Category name already exists, Please try another one.",
+            data: "",
+          });
         } else {
           if (req.file) {
             let previousImage = await subCategoryModel
@@ -424,68 +396,56 @@ PRODUCTS.create_subcategory = async (req, res) => {
           await subCategoryModel
             .findOneAndUpdate({ _id: req.body.id }, postData)
             .then(async (result) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Category Updated Successfully!",
-                  data: req.body.id,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Category Updated Successfully!",
+                data: req.body.id,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in update category.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in update category.",
+                data: err.message,
+              });
             });
         }
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in update category.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in update category.",
+          data: err.message,
+        });
       });
   } else {
     await subCategoryModel
       .findOne({ cate_name: req.body.cate_name })
       .then((check) => {
         if (check) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Category name already exists, Please try another one.",
-              data: check,
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Category name already exists, Please try another one.",
+            data: check,
+          });
         } else {
           postData.name = req.body.name;
           postData.parent_id = req.body.main_cateid;
           subCategoryModel
             .create(postData)
             .then((creatRes) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Category Added Successfully!",
-                  data: creatRes,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Category Added Successfully!",
+                data: creatRes,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in insert category.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in insert category.",
+                data: err.message,
+              });
             });
         }
       });
@@ -513,13 +473,11 @@ PRODUCTS.create_brand = async (req, res) => {
       .findOne({ brand_name: req.body.brand_name, _id: { $ne: req.body.id } })
       .then(async (checkBrandExist) => {
         if (checkBrandExist) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Brand name already exists, Please try another one.",
-              data: "",
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Brand name already exists, Please try another one.",
+            data: "",
+          });
         } else {
           if (req.file) {
             let previousImage = await brandModel
@@ -546,66 +504,54 @@ PRODUCTS.create_brand = async (req, res) => {
           await brandModel
             .findOneAndUpdate({ _id: req.body.id }, postData)
             .then(async (result) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Brand Updated Successfully!",
-                  data: req.body.id,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Brand Updated Successfully!",
+                data: req.body.id,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in update brand.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in update brand.",
+                data: err.message,
+              });
             });
         }
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in update brand.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in update brand.",
+          data: err.message,
+        });
       });
   } else {
     await brandModel
       .findOne({ brand_name: req.body.brand_name })
       .then((check) => {
         if (check) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Brand name already exists, Please try another one.",
-              data: check,
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Brand name already exists, Please try another one.",
+            data: check,
+          });
         } else {
           brandModel
             .create(postData)
             .then((creatRes) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Brand Added Successfully!",
-                  data: creatRes,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Brand Added Successfully!",
+                data: creatRes,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in insert brand.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in insert brand.",
+                data: err.message,
+              });
             });
         }
       });
@@ -648,45 +594,37 @@ PRODUCTS.create_attribute = async (req, res) => {
       })
       .then(async (checkExist) => {
         if (checkExist) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Attribute name already exists, Please try another one.",
-              data: "",
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Attribute name already exists, Please try another one.",
+            data: "",
+          });
         } else {
           postData.updatedAt = Date.now();
           await attributesModel
             .findOneAndUpdate({ _id: req.body.id }, postData)
             .then(async (result) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Attribute Updated Successfully!",
-                  data: req.body.id,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Attribute Updated Successfully!",
+                data: req.body.id,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in update attribute.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in update attribute.",
+                data: err.message,
+              });
             });
         }
       })
       .catch((err) => {
-        res
-          .status(500)
-          .json({
-            status: 0,
-            message: "Something went wrong in update attribute.",
-            data: err.message,
-          });
+        res.status(500).json({
+          status: 0,
+          message: "Something went wrong in update attribute.",
+          data: err.message,
+        });
       });
   } else {
     await attributesModel
@@ -696,33 +634,27 @@ PRODUCTS.create_attribute = async (req, res) => {
       })
       .then((check) => {
         if (check) {
-          res
-            .status(401)
-            .json({
-              status: 0,
-              message: "Attribute name already exists, Please try another one.",
-              data: check,
-            });
+          res.status(401).json({
+            status: 0,
+            message: "Attribute name already exists, Please try another one.",
+            data: check,
+          });
         } else {
           attributesModel
             .create(postData)
             .then((creatRes) => {
-              res
-                .status(200)
-                .json({
-                  status: 1,
-                  message: "Attribute Added Successfully!",
-                  data: creatRes,
-                });
+              res.status(200).json({
+                status: 1,
+                message: "Attribute Added Successfully!",
+                data: creatRes,
+              });
             })
             .catch((err) => {
-              res
-                .status(500)
-                .json({
-                  status: 0,
-                  message: "Something went wrong in insert Attribute.",
-                  data: err.message,
-                });
+              res.status(500).json({
+                status: 0,
+                message: "Something went wrong in insert Attribute.",
+                data: err.message,
+              });
             });
         }
       });
@@ -748,22 +680,18 @@ PRODUCTS.create_banner = async (req, res) => {
   promotionalBannerModel
     .create(postData)
     .then((creatRes) => {
-      res
-        .status(200)
-        .json({
-          status: 1,
-          message: "Banner Added Successfully!",
-          data: creatRes,
-        });
+      res.status(200).json({
+        status: 1,
+        message: "Banner Added Successfully!",
+        data: creatRes,
+      });
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({
-          status: 0,
-          message: "Something went wrong in insert banner.",
-          data: err.message,
-        });
+      res.status(500).json({
+        status: 0,
+        message: "Something went wrong in insert banner.",
+        data: err.message,
+      });
     });
 };
 
