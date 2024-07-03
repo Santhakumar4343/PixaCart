@@ -4,19 +4,20 @@ var cookieParser = require('cookie-parser');
 const session    = require("express-session");
 const bodyParser = require("body-parser");
 const path       = require('path');
-const routes     = require('./config/route');
+const routes     = require('./config/route'); 
 const config     = require('./config/config');
 const helper          = require('./helpers/my_helper');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json'); 
 var app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Setting EJS as templating engine
 app.use(express.static('public'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({limit: '5mb', extended: false }));
-// for parsing multipart/form-data
-//app.use(upload.array()); 
+
 app.use(cookieParser());
 
 app.use(session({

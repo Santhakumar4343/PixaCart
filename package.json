@@ -4,7 +4,8 @@
   "description": "Ecommerce app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "swagger": "node ./swagger.js"
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +28,12 @@
     "nodemon": "^2.0.15",
     "request": "^2.88.2",
     "sharp": "^0.30.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "twilio": "^3.76.1",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.23.7"
   }
 }
