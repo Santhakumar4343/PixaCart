@@ -425,10 +425,15 @@ const firebase_Notification = new mongoose.Schema({
 
 
 const courierServicesSchema = new mongoose.Schema({
-    courier_name :{ type: String,default:null},
-    status  :{ type: Number, default:1},
-    createdAt :{type: Date, default: Date.now},
-    updatedAt :{type: Date, default: Date.now}
+    service_name: { type: String, default: null },
+    email: { type: String, default: null },
+    password: { type: String, default: null },
+    phone_number: { type: String, default: null },
+    status: { type: Number, default: 1 },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
+
+
 });
 
 
