@@ -111,9 +111,15 @@ const productVariantsSchema = new mongoose.Schema({
     prod_quantity :{type: Number, default:0},
     prod_discount:{ type: Number,default:0},
     prod_discount_type  :{ type: String, default:null},
+
     prod_quantity :{type: Number, default:0},
     status :{type: Number, default:0},
+    prod_sizes_quantities: [{
+        size: { type: String, required: true },
+        quantity: { type: Number, required: true }
+    }],
     createdAt :{type: Date, default: Date.now},
+
     updatedAt :{type: Date, default: Date.now}
 });
 

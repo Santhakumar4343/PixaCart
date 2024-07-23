@@ -57,29 +57,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                <% if (attributesData) {  
-                                    attributesData.forEach(function(attribute) {  %>
-                                
-                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                                    <div class="form-group">
-                                        <label for="city" class="col-form-label"><%=attribute.attribute_name%> </label>
-                                        <select class="select2 form-control"  name="prod_attributes[<%=attribute.attribute_name%>]" >
-                                                <option value="" selected="" disabled="">---Select---</option>
-                                                <% if (attribute.attribute_value) { %>
-                                                    <% let attr_val = JSON.parse(attribute.attribute_value);
-                                                        attr_val.forEach(function(element, av) { 
-                                                         let selected =    proAttr[attribute.attribute_name] == element ? 'selected' : '';
-                                                            
-                                                        %>
-                                                            <option <%= selected %> value="<%= element %>" ><%= element %></option>
-                                                    <% }); %>
-                                                <% } %>
-                                        </select>
-                                    </div>
-                                </div>
-                                <% }); %>
-                                <% } %>
                              </div>
+                             <hr class="mt-4 mb-4">
+                             <h5 class="from-title mb-1">Product Sizes & Quantities</h5>
+                             <div id="sizes-quantities-wrapper" class="row">
+                                 <!-- Dynamic size and quantity fields will be added here -->
+                             </div>
+                             <div class="row mt-2 mb-2">
+                                 <div class="col-12">
+                                     <button type="button" class="btn btn-secondary" id="add-size-quantity">Add Size & Quantity</button>
+                                 </div>
+                             </div>
+                              
                             <hr class="mt-4 mb-4">
                             <h5 class="from-title mb-1">Product Price & Stock</h5>
                             <div class="row">
@@ -180,3 +169,25 @@
     </div>
 </div>
 <%- include('../partials/footer'); %>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addSizeQuantityBtn = document.getElementById('add-size-quantity');
+        const sizesQuantitiesWrapper = document.getElementById('sizes-quantities-wrapper');
+
+        addSizeQuantityBtn.addEventListener('click', function() {
+            const div = document.createElement('div');
+            div.classList.add('col-xl-6', 'col-lg-6', 'col-md-12', 'col-sm-12', 'col-12', 'mt-2');
+            div.innerHTML = `
+                <div class="form-group">
+                    <label for="product_size" class="col-form-label">Size</label>
+                    <input class="form-control require" type="text" placeholder="Size" name="prod_sizes[]" required>
+                </div>
+                <div class="form-group">
+                    <label for="product_quantity" class="col-form-label">Quantity</label>
+                    <input class="form-control require" type="number" placeholder="Quantity" name="prod_quantities[]" min="0" required>
+                </div>
+            `;
+            sizesQuantitiesWrapper.appendChild(div);
+        });
+    });
+</script>
